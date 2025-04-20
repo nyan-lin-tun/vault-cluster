@@ -1,14 +1,14 @@
 #!/bin/sh
 
-vault server -config=/vault/config/config.hcl &
-
-sleep 0.5
-
 # initialize vault
 if [ ! -s /unseal-script/unseal-output.txt ]; then
+    vault server -config=/vault/config/config.hcl & sleep 0.5
     vault operator init > /unseal-script/unseal-output.txt
 else
     echo "Vault is already initialized. Skipping initialization."
+    echo "Cleaning up files in /vault/file/*..."
+    rm -rf /vault/file/*
+    vault server -config=/vault/config/config.hcl & sleep 0.5
 fi
 
 # unseal vault
