@@ -1,3 +1,4 @@
 #!/bin/sh
 
-rm -rf ../vault-server{1..3}/file/*
+# Remove everything inside the "file" folder
+rm -rfv vault-server{1..3}/file/*
