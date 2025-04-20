@@ -65,6 +65,20 @@ services:
       - vault-server1
       - vault-server2
 
+  load-balancer:
+    image: nginx:latest
+    container_name: nginx-load-balancer
+    ports:
+      - "9000:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro # Read only
+    networks:
+      - vault-cluster-network
+    depends_on:
+      - vault-server1
+      - vault-server2
+      - vault-server3
+      
 networks:
   vault-cluster-network:
     driver: bridge
