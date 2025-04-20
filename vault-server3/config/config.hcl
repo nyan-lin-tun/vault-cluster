@@ -3,6 +3,14 @@ disable_mlock = true
 storage "raft" {
   path = "/vault/file"
   node_id = "node3"
+
+  retry_join {
+    leader_api_addr = "http://sg-vault-dev-server1:8200"
+  }
+
+  retry_join {
+    leader_api_addr = "http://sg-vault-dev-server2:8200"
+  }
 }
 
 listener "tcp" {
